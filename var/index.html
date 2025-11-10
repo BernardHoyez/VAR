@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00695c">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon192.png" type="image/png">
+  <title>Verdon Argens Randonnée (VAR)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Verdon Argens Randonnée (VAR)</h1>
+    <nav>
+      <button id="accueil">Accueil</button>
+      <button id="presentation">Présentation</button>
+      <button id="a-venir" class="active">Randonnées à venir</button>
+      <button id="passees">Randonnées passées</button>
+      <button id="galerie">Galerie</button>
+      <button id="infos">Informations</button>
+    </nav>
+  </header>
+
+  <main id="content">
+    <h2>Randonnées à venir</h2>
+    <div id="markdown-container">Chargement en cours...</div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Verdon Argens Randonnée</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
