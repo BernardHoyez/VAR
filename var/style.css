@@ -1,0 +1,51 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+  color: #333;
+}
+
+header {
+  background: #006b3c;
+  color: white;
+  text-align: center;
+  padding: 1em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: #ddd;
+}
+
+nav button {
+  margin: 4px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #006b3c;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: #00994c;
+}
+
+main {
+  padding: 1em;
+  max-width: 800px;
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #aaa;
+}
+
+footer {
+  text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
+  color: #666;
+}
