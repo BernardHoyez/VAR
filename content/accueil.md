@@ -1,4 +1,16 @@
+# Bienvenue au VAR
 
+![Logo VAR](icon512.png)
+
+Verdon Argens Randonnée vous accueille !
+
+## Prochaine sortie
+Consultez notre [programme trimestriel](#randonnees)
+
+## Rejoignez-nous
+Découvrez les plus beaux sentiers du Var...
+
+![Ochidée](photos/orchidee.jpg)
 
 L’**Association Verdon Argens Randonnée (V.A.R)**, basée à **Carcès**, propose des activités de randonnée dans la région. Voici un aperçu de ce qu’elle offre :
 
