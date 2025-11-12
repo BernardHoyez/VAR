@@ -1,3 +1,3 @@
 # Informations
 
-Contact : info@verdonargensrandonnee.fr
+Contact : loubeoucamin@gmail.com
