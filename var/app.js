@@ -1,7 +1,15 @@
 async function loadPage(page) {
-  const res = await fetch(`../content/${page}.md`);
-  const md = await res.text();
-  document.getElementById("content").innerHTML = marked.parse(md);
+  // Cas particulier : la page "randonnees_a_venir" est au format HTML
+  const extension = page === "randonnees_a_venir" ? "html" : "md";
+  const res = await fetch(`../content/${page}.${extension}`);
+  const content = await res.text();
+
+  // Si c’est du Markdown, on le convertit
+  if (extension === "md") {
+    document.getElementById("content").innerHTML = marked.parse(content);
+  } else {
+    document.getElementById("content").innerHTML = content;
+  }
 }
 
 document.querySelectorAll("nav button").forEach(btn => {
