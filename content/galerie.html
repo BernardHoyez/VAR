@@ -189,71 +189,91 @@
     </div>
 
     <script>
-        const slides = document.querySelectorAll('.carousel-slide');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const counter = document.getElementById('counter');
-        const indicatorsContainer = document.getElementById('indicators');
-        
-        let currentIndex = 0;
-        const totalSlides = slides.length;
-
-        // Créer les indicateurs
-        for (let i = 0; i < totalSlides; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (i === 0) indicator.classList.add('active');
-            indicator.addEventListener('click', () => goToSlide(i));
-            indicatorsContainer.appendChild(indicator);
-        }
-
-        const indicators = document.querySelectorAll('.indicator');
-
-        function updateCarousel() {
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                indicators[index].classList.remove('active');
-            });
+        // Attendre que le DOM soit complètement chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const counter = document.getElementById('counter');
+            const indicatorsContainer = document.getElementById('indicators');
             
-            slides[currentIndex].classList.add('active');
-            indicators[currentIndex].classList.add('active');
-            counter.textContent = `Photo ${currentIndex + 1} / ${totalSlides}`;
-        }
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            let autoSlide;
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateCarousel();
-        }
+            // Créer les indicateurs
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (i === 0) indicator.classList.add('active');
+                indicator.onclick = function() { goToSlide(i); };
+                indicatorsContainer.appendChild(indicator);
+            }
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
+            const indicators = document.querySelectorAll('.indicator');
 
-        function goToSlide(index) {
-            currentIndex = index;
-            updateCarousel();
-        }
+            function updateCarousel() {
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].classList.remove('active');
+                    indicators[i].classList.remove('active');
+                }
+                
+                slides[currentIndex].classList.add('active');
+                indicators[currentIndex].classList.add('active');
+                counter.textContent = 'Photo ' + (currentIndex + 1) + ' / ' + totalSlides;
+            }
 
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }
 
-        // Défilement automatique toutes les 5 secondes
-        let autoSlide = setInterval(nextSlide, 5000);
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
 
-        // Pause lors du survol
-        document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
-            clearInterval(autoSlide);
-        });
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
 
-        document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
-            autoSlide = setInterval(nextSlide, 5000);
-        });
+            // Événements des boutons
+            if (nextBtn) {
+                nextBtn.onclick = nextSlide;
+            }
+            if (prevBtn) {
+                prevBtn.onclick = prevSlide;
+            }
 
-        // Navigation au clavier
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') prevSlide();
-            if (e.key === 'ArrowRight') nextSlide();
+            // Défilement automatique toutes les 5 secondes
+            function startAutoSlide() {
+                autoSlide = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoSlide() {
+                if (autoSlide) {
+                    clearInterval(autoSlide);
+                }
+            }
+
+            startAutoSlide();
+
+            // Pause lors du survol
+            const carouselContainer = document.querySelector('.carousel-container');
+            if (carouselContainer) {
+                carouselContainer.onmouseenter = stopAutoSlide;
+                carouselContainer.onmouseleave = startAutoSlide;
+            }
+
+            // Navigation au clavier
+            document.onkeydown = function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            };
         });
     </script>
 </body>
