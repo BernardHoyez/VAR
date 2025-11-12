@@ -3,7 +3,7 @@ async function loadPage(page) {
   let content = "";
   let found = false;
 
-  // On essaie d'abord le fichier .md
+  // Essai du .md
   try {
     const res = await fetch(`${basePath}.md`);
     if (res.ok) {
@@ -13,7 +13,7 @@ async function loadPage(page) {
     }
   } catch (e) {}
 
-  // Si le .md n’existe pas, on tente le .html
+  // Sinon essai du .html
   if (!found) {
     try {
       const res = await fetch(`${basePath}.html`);
@@ -24,11 +24,39 @@ async function loadPage(page) {
     } catch (e) {}
   }
 
-  // Affichage du contenu ou message d’erreur
+  // Affiche le contenu ou message d’erreur
   const target = document.getElementById("content");
   target.innerHTML = found
     ? content
     : "<p style='color:red;'>Page introuvable.</p>";
+
+  // 👉 Après affichage, si c’est la page galerie, initialise le carrousel
+  if (page === "galerie") initCarousel();
+}
+
+// Initialisation du carrousel si présent
+function initCarousel() {
+  const track = document.querySelector('.carousel-track');
+  if (!track) return; // pas de carrousel ici
+
+  const slides = Array.from(track.children);
+  const nextButton = document.querySelector('.next');
+  const prevButton = document.querySelector('.prev');
+  let index = 0;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  nextButton.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    updateCarousel();
+  });
+
+  prevButton.addEventListener('click', () => {
+    index = (index - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
 }
 
 document.querySelectorAll("nav button").forEach(btn => {
